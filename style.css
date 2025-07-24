@@ -1,0 +1,23 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #1e1e1e;
+  color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.player {
+  background: #2e2e2e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+  max-width: 500px;
+  width: 100%;
+}
+
+button, input[type="number"] {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 1em;
+}

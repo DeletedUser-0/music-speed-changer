@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Web Audio Speed Music Player</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="player">
+    <h1>Web Audio Speed Music Player</h1>
+
+    <!-- file input -->
+    <input type="file" id="fileInput" accept="audio/*" />
+
+    <!-- play / pause -->
+    <button id="playPauseBtn" disabled>Play</button>
+
+    <!-- manual speed control -->
+    <div class="controls">
+      <label>Speed: <span id="speedDisplay">100%</span></label>
+      <button id="setSpeedBtn">Set Speed</button>
+    </div>
+
+    <!-- auto-change controls -->
+    <div class="auto-controls">
+      <label><input type="radio" name="mode" value="linear" checked /> Linear</label>
+      <label><input type="radio" name="mode" value="exponential" /> Exponential</label>
+      <br>
+      <label>
+        Change Amount:
+        <input
+          type="number"
+          id="changeAmount"
+          step="0.1"
+          min="-100"
+          value="5"
+          inputmode="decimal"
+          pattern="-?[0-9]*\.?[0-9]*"
+          placeholder="e.g. -5 or 5"
+        />
+        % / sec
+      </label>
+      <br>
+      <button id="startAutoBtn">Start Auto Change</button>
+      <button id="stopAutoBtn">Stop</button>
+    </div>
+  </div>
+
+  <script src="web-audio-script.js"></script>
+</body>
+</html>
