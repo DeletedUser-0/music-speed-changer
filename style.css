@@ -1,23 +1,21 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #1e1e1e;
-  color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
+body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+
+.playlist {
+  list-style: none;
+  padding: 0;
+  margin-top: 1em;
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-.player {
-  background: #2e2e2e;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.4);
-  max-width: 500px;
-  width: 100%;
+.playlist li {
+  padding: 0.5em;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
 }
 
-button, input[type="number"] {
-  margin-top: 10px;
-  padding: 5px 10px;
-  font-size: 1em;
+.playlist li.active {
+  background-color: #d0eaff;
+  font-weight: bold;
 }
