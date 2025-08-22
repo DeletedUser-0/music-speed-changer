@@ -13,9 +13,11 @@
     <input type="file" id="playlistInput" accept="audio/*" multiple />
     <button onclick="togglePlay()" id="playPauseBtn" disabled>Play</button>
     <button onclick="prevTrack()">Prev</button>
-    <button onclick="togglePlay()" id="playPauseBtn" disabled>Play</button>
     <button onclick="nextTrack()">Next</button>
     <label><input type="checkbox" id="loopToggle" checked> Loop Playlist</label>
+
+    <!-- Added Shuffle button -->
+    <button id="shuffleBtn" onclick="toggleShuffle()">Shuffle Off</button>
 
     <div class="controls">
       <label>Speed: <span id="speedDisplay">100.00%</span></label>
@@ -37,7 +39,7 @@
           pattern="-?[0-9]*\.?[0-9]*"
           placeholder="e.g. 5"
         />
-        % / sec
+        %â€‰/â€‰sec
       </label>
       <button onclick="startSpeedChange()">Start Auto Change</button>
       <button onclick="stopSpeedChange()">Stop</button>
@@ -48,4 +50,5 @@
 
   <script src="web-audio-script.js"></script>
 </body>
+</html>
 </html>
