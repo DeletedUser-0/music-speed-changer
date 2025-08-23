@@ -1,21 +1,180 @@
-body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    background: #f5f5f5;
+}
+
+.player {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem;
+    color: #666;
+}
+
+.playback-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.playback-controls button {
+    min-width: 70px;
+    text-align: center;
+}
+
+#playPauseBtn {
+    min-width: 100px;
+    background: #4a90e2;
+}
+
+button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background: #4a90e2;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+button:hover:not(:disabled) {
+    background: #357abd;
+}
+
+button:disabled {
+    background: #333;
+    color: #666;
+}
+
+.speed-change-controls {
+    background: #f8f9fa;
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin: 0.8rem 0;
+}
+
+.speed-change-controls div {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 0.3rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="file"] {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
 
 .playlist {
-  list-style: none;
-  padding: 0;
-  margin-top: 1em;
-  border: 1px solid #ccc;
-  max-height: 200px;
-  overflow-y: auto;
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 4px;
 }
 
 .playlist li {
-  padding: 0.5em;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.playlist li:hover {
+    background: #f0f0f0;
 }
 
 .playlist li.active {
-  background-color: #d0eaff;
-  font-weight: bold;
+    background: #e3f2fd;
+    border-left: 3px solid #4a90e2;
+}
+
+.controls, .auto-controls {
+    background: #f8f9fa;
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin: 0.8rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+#speedDisplay {
+    font-family: monospace;
+    color: #2962ff;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+/* Checkbox and radio inputs */
+input[type="checkbox"], input[type="radio"] {
+    margin-right: 0.4rem;
+}
+
+/* Grouping controls */
+.playlist-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 0.8rem 0;
+}
+
+#speedDisplay {
+    color: #4a90e2;
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+/* Checkbox and radio styling */
+input[type="checkbox"], input[type="radio"] {
+    accent-color: #4a90e2;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4a90e2;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #357abd;
 }
