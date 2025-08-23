@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Web Audio Speed Music Player</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Web Audio Speed Music Player</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="player">
     <h1>Web Audio Speed Music Player</h1>
     
-    <input type="file" id="playlistInput" accept="audio/*" multiple />
-    <button onclick="togglePlay()" id="playPauseBtn" disabled>Play</button>
-    <button onclick="prevTrack()">Prev</button>
-    <button onclick="nextTrack()">Next</button>
-    <label><input type="checkbox" id="loopToggle" checked> Loop Playlist</label>
+    <div class="playback-controls">
+      <button onclick="prevTrack()">Prev</button>
+      <button onclick="togglePlay()" id="playPauseBtn" disabled>Play</button>
+      <button onclick="nextTrack()">Next</button>
+    </div>
 
-    <!-- Added Shuffle button -->
-    <button id="shuffleBtn" onclick="toggleShuffle()">Shuffle Off</button>
+    <input type="file" id="playlistInput" accept="audio/*" multiple />
+
+    <div class="playlist-controls">
+      <label><input type="checkbox" id="loopToggle" checked> Loop Playlist</label>
+      <button id="shuffleBtn" onclick="toggleShuffle()">Shuffle Playlist</button>
+    </div>
+    
+    <div class="speed-change-controls">
+      <h2>Speed Controls</h2>
+      <div>
+        <label><input type="checkbox" id="changeSpeedOnTrack"> Multiply Speed on Next Track by</label>
+        <input type="number" id="nextTrackSpeed" value="1.5" min="0.1" step="0.1">times
+      </div>
+      
+      <div>
+        <label><input type="checkbox" id="changeSpeedOnLoop"> Multiply Speed on Playlist Loop by</label>
+        <input type="number" id="loopSpeed" value="2.0" min="0.1" step="0.1">times
+      </div>
+    </div>
 
     <div class="controls">
       <label>Speed: <span id="speedDisplay">100.00%</span></label>
@@ -25,30 +42,27 @@
     </div>
 
     <div class="auto-controls">
-      <label><input type="radio" name="mode" value="linear" checked /> Linear</label>
-      <label><input type="radio" name="mode" value="exponential" /> Exponential</label>
-      <label>
-        Change Amount:
-        <input
-          type="number"
-          id="changeAmount"
-          step="0.1"
-          min="-100"
-          value="5"
-          inputmode="decimal"
-          pattern="-?[0-9]*\.?[0-9]*"
-          placeholder="e.g. 5"
-        />
-        %â€‰/â€‰sec
-      </label>
-      <button onclick="startSpeedChange()">Start Auto Change</button>
-      <button onclick="stopSpeedChange()">Stop</button>
+      <h2>Auto Speed Change</h2>
+      <div>
+        <label><input type="radio" name="mode" value="linear" checked /> Linear</label>
+        <label><input type="radio" name="mode" value="exponential" /> Exponential</label>
+      </div>
+      <div>
+        <label>
+          Change Amount:
+          <input type="number" id="changeAmount" step="0.1" min="-100" value="5"
+                 inputmode="decimal" pattern="-?[0-9]*\.?[0-9]*" placeholder="e.g. 5" />
+          %/sec
+        </label>
+        <button onclick="startSpeedChange()">Start</button>
+        <button onclick="stopSpeedChange()">Stop</button>
+      </div>
     </div>
+
     <h2>Playlist</h2>
     <ul id="playlistDisplay" class="playlist"></ul>
   </div>
 
   <script src="web-audio-script.js"></script>
 </body>
-</html>
 </html>
