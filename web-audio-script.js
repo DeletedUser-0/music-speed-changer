@@ -16,6 +16,10 @@ const playPauseBtn = document.getElementById("playPauseBtn");
 const playlistDisplay = document.getElementById("playlistDisplay");
 const loopToggle = document.getElementById("loopToggle");
 const shuffleBtn = document.getElementById("shuffleBtn");
+const changeSpeedOnTrack = document.getElementById("changeSpeedOnTrack");
+const changeSpeedOnLoop = document.getElementById("changeSpeedOnLoop");
+const nextTrackSpeed = document.getElementById("nextTrackSpeed");
+const loopSpeed = document.getElementById("loopSpeed");
 
 let playlistFiles = [];
 let currentIndex = 0;
@@ -106,12 +110,46 @@ function toggleShuffle() {
   renderPlaylist();
 }
 
+function adjustSpeed(type) {
+  let multiplier = 1.0;
+
+  if (type === 'next' && nextTrackSpeed) {
+    multiplier = Math.max(0, parseFloat(nextTrackSpeed.value) || 1.0);
+  } else if (type === 'loop' && loopSpeed) {
+    multiplier = Math.max(0, parseFloat(loopSpeed.value) || 1.0);
+  }
+
+  // Multiply current speed by the multiplier
+  playbackRate *= multiplier;
+  
+  // Only prevent negative speeds
+  if (!isFinite(playbackRate) || playbackRate < 0) {
+    playbackRate = 0;
+  }
+  
+  if (sourceNode && audioContext) {
+    sourceNode.playbackRate.setValueAtTime(playbackRate, audioContext.currentTime);
+  }
+  
+  updateSpeedDisplay();
+}
+
 function loadTrack(index) {
   stopPlayback();
   autoAdvanceLocked = false;
 
   const entry = playlistFiles[index];
   if (!entry || !entry.buffer) return;
+
+  // Apply speed changes if enabled and not first track load
+  if (audioBuffer !== null) {
+    if (changeSpeedOnTrack && changeSpeedOnTrack.checked) {
+      adjustSpeed('next');  // Apply next track multiplier for both normal advance and loop
+    }
+    if (index === 0 && changeSpeedOnLoop && changeSpeedOnLoop.checked) {
+      adjustSpeed('loop');  // Additionally apply loop multiplier when looping
+    }
+  }
 
   audioBuffer = entry.buffer;
   sourceNode = audioContext.createBufferSource();
@@ -255,11 +293,7 @@ function setSpeedFromInput() {
 
 function updateSpeedDisplay() {
   if (!isFinite(playbackRate) || playbackRate <= 0) playbackRate = 1.0;
-  if (playbackRate < 10) {
-    speedDisplay.textContent = (playbackRate * 100).toFixed(2) + "%";
-  } else {
-    speedDisplay.textContent = playbackRate.toFixed(2) + "×";
-  }
+  speedDisplay.textContent = (playbackRate * 100).toFixed(2) + "%";
 }
 
 function getMode() {
@@ -334,6 +368,37 @@ function renderPlaylist() {
   });
 }
 
+// Ensure initial state
+generatePlayOrder(true);
+updateShuffleButton();
+renderPlaylist();
+updateShuffleButton();
+renderPlaylist();
+  displayOrder.forEach((origIndex) => {
+    const track = playlistFiles[origIndex];
+    if (!track) return;
+    const li = document.createElement("li");
+    li.textContent = track.file.name;
+    if (origIndex === currentIndex) li.classList.add("active");
+    li.addEventListener("click", () => {
+      currentIndex = origIndex;
+      // sync playOrderIndex to clicked track
+      const playPos = playOrder.indexOf(origIndex);
+      if (playPos >= 0) {
+        playOrderIndex = playPos;
+      } else {
+        generatePlayOrder(true);
+        playOrderIndex = playOrder.indexOf(origIndex);
+      }
+      loadTrack(origIndex);
+    });
+    playlistDisplay.appendChild(li);
+  });
+
+// Ensure initial state
+generatePlayOrder(true);
+updateShuffleButton();
+renderPlaylist();
 // Ensure initial state
 generatePlayOrder(true);
 updateShuffleButton();
